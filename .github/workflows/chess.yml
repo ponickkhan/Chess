@@ -178,7 +178,7 @@ jobs:
               i = 0
               issues&.each do |issue|
                 break if issue.title.start_with? 'chess|new'
-                if issue.title.start_with?('chess|move|') && ENV.fetch('REPOSITORY') == 'timburgan/timburgan'
+                if issue.title.start_with?('chess|move|') && ENV.fetch('REPOSITORY') == 'ponickkhan/Chess'
                   if issue.user.login == ENV.fetch('EVENT_USER_LOGIN')
                     comment_text = "@#{ENV.fetch('EVENT_USER_LOGIN')} Slow down! You _just_ moved, so can't immediately take the next turn. Invite a friend to take the next turn! [Share on Twitter...](https://twitter.com/share?text=I'm+playing+chess+on+a+GitHub+Profile+Readme!+I+just+moved.+You+have+the+next+move+at+https://github.com/timburgan)"
                     error_notification(ENV.fetch('REPOSITORY'), ENV.fetch('EVENT_ISSUE_NUMBER'), 'confused', comment_text, e)
@@ -236,7 +236,7 @@ jobs:
                     game_stats[:end_time] = issue.created_at
                   end
                   game_stats[:moves] += 1
-                  if ENV.fetch('REPOSITORY') == 'timburgan/timburgan'
+                  if ENV.fetch('REPOSITORY') == 'ponickkhan/Chess'
                     game_stats[:players].push "@#{issue.user.login}"
                   else
                     game_stats[:players].push "#{issue.user.login}"
@@ -251,13 +251,13 @@ jobs:
 
 
 
-          @octokit.add_comment(ENV.fetch('REPOSITORY'), ENV.fetch('EVENT_ISSUE_NUMBER'), "@#{ENV.fetch('EVENT_USER_LOGIN')} Done. View back at https://github.com/timburgan\n\nAsk a friend to take the next move: [Share on Twitter...](https://twitter.com/share?text=I'm+playing+chess+on+a+GitHub+Profile+Readme!+I+just+moved.+You+have+the+next+move+at+https://github.com/timburgan)")          
+          @octokit.add_comment(ENV.fetch('REPOSITORY'), ENV.fetch('EVENT_ISSUE_NUMBER'), "@#{ENV.fetch('EVENT_USER_LOGIN')} Done. View back at https://github.com/ponickkhan\n\nAsk a friend to take the next move: [Share on Twitter...](https://twitter.com/share?text=I'm+playing+chess+on+a+GitHub+Profile+Readme!+I+just+moved.+You+have+the+next+move+at+https://github.com/ponickkhan)")
           @octokit.close_issue(ENV.fetch('REPOSITORY'), ENV.fetch('EVENT_ISSUE_NUMBER'))
 
 
 
           #
-          # Update timburgan/timburgan/README.md
+          # Update ponickkhan/Chess/README.md
           # ---------------------------------------
 
           # visually represent the board
@@ -419,7 +419,7 @@ jobs:
 
             **Notice a problem?**
 
-            Raise an [issue](https://github.com/#{ENV.fetch('REPOSITORY')}/issues), and include the text _cc @timburgan_.
+            Raise an [issue](https://github.com/#{ENV.fetch('REPOSITORY')}/issues), and include the text _cc @ponickkhan_.
 
             **Last few moves, this game**
 
@@ -456,7 +456,7 @@ jobs:
           HTML
 
           if issues.present?
-              moves = issues.select{|issue| issue.title.start_with? 'chess|move|'}.map{ |issue| issue.user.login }&.group_by(&:itself)&.except("timburgan")&.transform_values(&:size).sort_by{|name,moves| moves }.reverse[0..19]
+              moves = issues.select{|issue| issue.title.start_with? 'chess|move|'}.map{ |issue| issue.user.login }&.group_by(&:itself)&.except("ponickkhan")&.transform_values(&:size).sort_by{|name,moves| moves }.reverse[0..19]
               moves.each do |move|
                 new_readme.concat "| #{move[1]} | [@#{move[0]}](https://github.com/#{move[0]}) |\n"
               end
